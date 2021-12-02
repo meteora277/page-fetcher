@@ -7,10 +7,16 @@ const fetcher = function(url, path) {
   
   request(`${url}`, (error, status, body) => {
 
-    console.log(error);
-    console.log(status);
-    console.log(body);
-    console.log(JSON.stringify(status).length + JSON.stringify(status).length + JSON.stringify(error).length, "uwu")
+    let file = JSON.stringify(status, null, 2) + '\n' + JSON.stringify(body,null,2) + '\n' + JSON.stringify(error,null,2);
+
+    fs.writeFile(`${path}`,file , err => {
+      console.log(`Downloaded and saved ${file.length} bytes to ${path}`);
+      if (err) {
+        console.log(err);
+        return;
+      }
+    });
+  
   });
 
 };
